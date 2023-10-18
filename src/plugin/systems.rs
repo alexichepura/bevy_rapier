@@ -21,6 +21,7 @@ use crate::prelude::{
 use crate::utils;
 use bevy::ecs::system::{StaticSystemParam, SystemParamItem};
 use bevy::prelude::*;
+use rapier::prelude::Real;
 use rapier::prelude::*;
 use std::collections::HashMap;
 
@@ -1507,7 +1508,10 @@ mod tests {
     use bevy::{
         asset::AssetPlugin,
         ecs::event::Events,
-        render::{settings::WgpuSettings, RenderPlugin},
+        render::{
+            settings::{RenderCreation, WgpuSettings},
+            RenderPlugin,
+        },
         scene::ScenePlugin,
         time::TimePlugin,
         window::WindowPlugin,
@@ -1825,10 +1829,10 @@ mod tests {
                 AssetPlugin::default(),
                 ScenePlugin::default(),
                 RenderPlugin {
-                    wgpu_settings: WgpuSettings {
+                    render_creation: RenderCreation::Automatic(WgpuSettings {
                         backends: None,
                         ..Default::default()
-                    },
+                    }),
                 },
                 ImagePlugin::default(),
             ));
